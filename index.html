@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css"/>
+    <title>Metronome</title>
+    <script defer src="./script.js"></script>
+</head>
+<body>
+    <div id="metronome">
+        <h1>Metronome</h1>
+        <div id="beatCircle"></div>
+        <label for="bpmSlider">BPM:</label>
+        <input id="bpmSlider" type="range" min="30" max="300" value="120" step="1" />
+        <span id="bpmDisplay">120</span> BPM
+        <label for="subdivision">Subdivision:</label>
+        <select id="subdivision">
+            <option value="1" selected>Quarter Notes</option>
+            <option value="2">Eighth Notes</option>
+            <option value="4">Sixteenth Notes</option>
+        </select>
+        <button id="startStop">Start/Stop</button>
+    </div>
+        
+</body>
+</html>
