@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./style.css" />
     <title>Metronome</title>
     <script defer src="./script.js"></script>
 </head>
+
 <body>
     <div id="metronome">
         <h1>Metronome</h1>
@@ -22,6 +24,15 @@
         </select>
         <button id="startStop">Start/Stop</button>
     </div>
-        
-</body>
+    <label for="timeSignature">Time Signature:</label>
+    <select id="timeSignature">
+        <option value="4">4/4</option>
+        <option value="3">3/4</option>
+        <option value="2">2/4</option>
+        <option value="6">6/8</option>
+        <option value="5">5/4</option>
+        <option value="7">7/4</option>
+    </select>
+    </body>
+
 </html>

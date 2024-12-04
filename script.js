@@ -27,25 +27,45 @@ function playClick(time, frequency) {
     osc.stop(time + 0.05); // Short click sound
 }
 
-// Scheduler function
+// Add a function to change the time signature
+function changeTimeSignature(beats) {
+    beatsPerMeasure = beats;
+
+    // Reset currentTick and nextNoteTime to realign the scheduler
+    currentTick = 0;
+    nextNoteTime = audioContext.currentTime;
+
+    console.log(`Time signature set to ${beats}/${subdivision === 1 ? 4 : subdivision * 2}`);
+}
+
+// Update the scheduler to dynamically support the time signature
 function scheduler() {
     while (nextNoteTime < audioContext.currentTime + scheduleAheadTime) {
-        const isOnBeat = currentTick % (beatsPerMeasure * subdivision) === 0;
-        const isSubBeat = currentTick % subdivision === 0;
+        const isDownbeat = currentTick % (beatsPerMeasure * subdivision) === 0;
+        const isOnBeat = currentTick % subdivision === 0;
 
-        if (isOnBeat) {
-            playClick(nextNoteTime, 1000); // On-beat: higher pitch
-        } else if (isSubBeat) {
-            playClick(nextNoteTime, 800); // Subdivided beat: medium pitch
+        if (isDownbeat) {
+            playClick(nextNoteTime, 1000); // Downbeat: higher pitch
+        } else if (isOnBeat) {
+            playClick(nextNoteTime, 800); // Regular beat
         } else {
-            playClick(nextNoteTime, 600); // Off-beat: lower pitch
+            playClick(nextNoteTime, 600); // Off-beat
         }
 
         nextNoteTime += interval;
         currentTick++;
+        if (currentTick >= beatsPerMeasure * subdivision) {
+            currentTick = 0; // Reset for the next measure
+        }
     }
     timerID = setTimeout(scheduler, lookahead);
 }
+
+// Example usage for time signature selection
+document.querySelector("#timeSignature").addEventListener("change", (e) => {
+    const [beats, sub] = e.target.value.split("/").map(Number);
+    changeTimeSignature(beats, sub);
+});
 
 // Start/Stop the metronome
 function toggleMetronome() {
